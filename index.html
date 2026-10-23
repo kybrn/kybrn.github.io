@@ -1,1 +1,374 @@
-DevOps engineer in progress...
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Xavier · DevOps & Cloud</title>
+  <meta name="description" content="Architect and construction site manager retraining as a DevOps / Cloud engineer. Based in Lleida, Spain.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F0EEE9;
+      --paper: #FAF9F6;
+      --ink: #1D2633;
+      --muted: #5B6472;
+      --line: #D9D6CF;
+      --grid: rgba(15,76,129,0.07);
+      --accent: #0F4C81;
+      --accent-soft: rgba(15,76,129,0.10);
+      --ok: #A47864;
+      --hl: var(--accent);
+      --st: var(--accent);
+      --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+      --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0E2338;
+        --paper: #143050;
+        --ink: #F0EEE9;
+        --muted: #A9B6C6;
+        --line: #24456B;
+        --grid: rgba(240,238,233,0.05);
+        --accent: #8DB8E8;
+        --accent-soft: rgba(141,184,232,0.14);
+        --ok: #D2A68E;
+        --hl: var(--accent);
+        --st: var(--accent);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0E2338;
+      --paper: #143050;
+      --ink: #F0EEE9;
+      --muted: #A9B6C6;
+      --line: #24456B;
+      --grid: rgba(240,238,233,0.05);
+      --accent: #8DB8E8;
+      --accent-soft: rgba(141,184,232,0.14);
+      --ok: #D2A68E;
+      --hl: var(--accent);
+      --st: var(--accent);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--sans);
+      color: var(--ink);
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+      background-size: 24px 24px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+    .logo { font-family: var(--mono); font-weight: 500; text-decoration: none; letter-spacing: .02em; }
+    .logo span { color: var(--accent); }
+    .nav ul { display: flex; gap: 20px; list-style: none; margin: 0; padding: 0; font-size: 14px; }
+    .nav a { text-decoration: none; color: var(--muted); }
+    .nav a:hover { color: var(--ink); }
+
+    /* Labels like drawing annotations */
+    .label {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--accent); display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+    }
+    .label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+
+    section { padding: 72px 0 8px; }
+
+    /* Hero */
+    .hero { padding: 96px 0 40px; }
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 72px); line-height: 1.02; margin: 0 0 18px; letter-spacing: -.02em; font-weight: 700;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero p.lead { font-size: clamp(17px, 2.2vw, 20px); color: var(--muted); max-width: 640px; margin: 0 0 28px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; font-family: var(--mono); font-size: 13px; }
+    .chip {
+      border: 1px solid var(--line); background: var(--paper); padding: 6px 12px; border-radius: 999px; white-space: nowrap;
+    }
+    .chip.live { border-color: color-mix(in srgb, var(--ok) 45%, var(--line)); }
+    .chip.live::before {
+      content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--ok); margin-right: 8px; vertical-align: middle;
+    }
+
+    /* Cards */
+    .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card {
+      background: var(--paper); border: 1px solid var(--line); border-radius: 10px; padding: 22px;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 17px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+    .card .from { font-family: var(--mono); font-size: 12px; color: var(--muted); margin-bottom: 10px; display: block; }
+    .card .from b { color: var(--accent); font-weight: 500; }
+    .about-text { max-width: 680px; font-size: 17px; margin: 0 0 28px; }
+
+    /* Timeline */
+    .timeline { list-style: none; margin: 0; padding: 0; border-left: 2px solid var(--line); }
+    .timeline li { position: relative; padding: 0 0 26px 26px; }
+    .timeline li::before {
+      content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 2px;
+      background: var(--bg); border: 2px solid var(--line);
+    }
+    .timeline li.now::before { background: var(--accent); border-color: var(--accent); }
+    .timeline .when { font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .06em; }
+    .timeline h3 { margin: 2px 0 4px; font-size: 17px; }
+    .timeline p { margin: 0; color: var(--muted); font-size: 15px; }
+    .status {
+      font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+      padding: 2px 8px; border-radius: 4px; margin-left: 8px; vertical-align: 2px;
+      background: var(--accent-soft); color: var(--accent);
+    }
+    .status.plan { background: transparent; border: 1px dashed var(--line); color: var(--muted); }
+
+    /* Projects */
+    .projects { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+    .project h3 { font-size: 19px; }
+    .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .stack span {
+      font-family: var(--mono); font-size: 12px; padding: 3px 8px; border-radius: 4px;
+      background: var(--bg); border: 1px solid var(--line);
+    }
+    .project.ghost { border-style: dashed; background: transparent; }
+    .project a.more { display: inline-block; margin-top: 14px; font-family: var(--mono); font-size: 13px; color: var(--accent); text-decoration: none; }
+    .project a.more:hover { text-decoration: underline; }
+
+    /* Skills */
+    .skills { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .skills h4 { margin: 0 0 8px; font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 500; }
+    .skills ul { list-style: none; margin: 0; padding: 0; font-size: 15px; }
+    .skills li { padding: 3px 0; }
+
+    /* Contact */
+    .contact { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 18px; border-radius: 8px;
+      border: 1px solid var(--line); background: var(--paper); text-decoration: none; font-weight: 500;
+    }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .btn:hover { border-color: var(--accent); }
+
+    /* Title block footer, like an architectural drawing */
+    footer { margin: 80px 0 40px; }
+    .titleblock {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; border: 1.5px solid var(--ink);
+      font-family: var(--mono); font-size: 12px; background: var(--paper);
+    }
+    .titleblock div { padding: 10px 12px; border-left: 1px solid var(--ink); }
+    .titleblock div:first-child { border-left: none; }
+    .titleblock small { display: block; color: var(--muted); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; }
+
+    @media (max-width: 760px) {
+      .nav ul { gap: 14px; font-size: 13px; }
+      .nav li.hide-sm { display: none; }
+      .grid3, .projects { grid-template-columns: 1fr; }
+      .skills { grid-template-columns: repeat(2, 1fr); }
+      .titleblock { grid-template-columns: 1fr 1fr; }
+      .titleblock div:nth-child(3) { border-left: none; }
+      .titleblock div:nth-child(n+3) { border-top: 1px solid var(--ink); }
+      .hero { padding-top: 64px; }
+    }
+
+    .hero h1 em { color: var(--hl); }
+    .status { color: var(--st); }
+    .theme-toggle {
+      font: 500 13px var(--sans); color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+      border-radius: 999px; padding: 6px 12px; cursor: pointer; margin-left: 18px; white-space: nowrap;
+    }
+    .theme-toggle:hover { border-color: var(--accent); }
+    .nav-right { display: flex; align-items: center; }
+    .theme-toggle { display: inline-flex; align-items: center; gap: 6px; }
+    .theme-toggle svg { width: 14px; height: 14px; }
+    .logo .tld { color: inherit; }
+    .nav li.hide-sm { display: list-item !important; }
+    @media (max-width: 760px) {
+      .nav ul { gap: 12px; font-size: 13px; }
+      .theme-toggle { margin-left: 12px; padding: 7px; }
+      .theme-toggle .t-label { display: none; }
+    }
+    @media (max-width: 400px) { .logo .tld, .logo span:not(.tld) { display: none; } }
+    .palette { margin: 14px 0 0; font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
+    .palette .sw { display: inline-flex; align-items: center; gap: 7px; }
+    .palette i { display: inline-block; width: 14px; height: 14px; border-radius: 50%; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <a class="logo" href="#top">kybrn<span>.</span><span class="tld">dev</span></a>
+      <div class="nav-right">
+      <nav>
+        <ul>
+          <li class="hide-sm"><a href="#about">About</a></li>
+          <li><a href="#path">Path</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch colour mode"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg><span class="t-label">Dark</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="label">Sheet 01 — Profile</div>
+      <!-- TODO: add your surname after "Xavier" -->
+      <h1>Xavier.<br>From building sites<br>to <em>cloud infrastructure</em>.</h1>
+      <p class="lead">
+        Licensed architect and construction site manager with 10 years in the building industry,
+        now retraining as a DevOps / Cloud engineer.
+      </p>
+      <div class="meta">
+        <span class="chip live">Learning DevOps full-time</span>
+        <span class="chip">Lleida, Spain</span>
+        <span class="chip">On-site · Hybrid BCN · Remote</span>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="label">Sheet 02 — Why infrastructure</div>
+      <p class="about-text">
+        For seven years I ran construction sites: plans, budgets, subcontractors, deadlines and safety,
+        with zero tolerance for things breaking in production. DevOps is the same job in a different
+        material — so I'm bringing that mindset to cloud systems.
+      </p>
+      <div class="grid3">
+        <div class="card">
+          <span class="from"><b>Site</b> → Cloud</span>
+          <h3>Plan before you build</h3>
+          <p>Construction drawings become Infrastructure as Code: reviewed, versioned and reproducible.</p>
+        </div>
+        <div class="card">
+          <span class="from"><b>Site</b> → Cloud</span>
+          <h3>Coordinate many trades</h3>
+          <p>Sequencing crews and suppliers maps naturally to CI/CD pipelines and team workflows.</p>
+        </div>
+        <div class="card">
+          <span class="from"><b>Site</b> → Cloud</span>
+          <h3>Nothing ships unsafe</h3>
+          <p>Inspections and safety checks become monitoring, alerting and security by default.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATH -->
+    <section id="path">
+      <div class="label">Sheet 03 — Learning path</div>
+      <ol class="timeline">
+        <li class="now">
+          <span class="when">2026 · Q4</span>
+          <h3>DevOps foundations <span class="status">In progress</span></h3>
+          <p>Linux, Git, networking, Docker, build tools — TechWorld with Nana DevOps Bootcamp.</p>
+        </li>
+        <li>
+          <span class="when">2026 – 2027</span>
+          <h3>Intensive DevOps &amp; Cloud bootcamp <span class="status plan">Planned</span></h3>
+          <p>AWS, Terraform, Kubernetes, CI/CD (GitHub Actions, Jenkins), GitOps and observability.</p>
+        </li>
+        <li>
+          <span class="when">2027</span>
+          <h3>AWS Certified Solutions Architect – Associate <span class="status plan">Target</span></h3>
+          <p>Followed by the Certified Kubernetes Administrator (CKA).</p>
+        </li>
+        <li>
+          <span class="when">Next</span>
+          <h3>MLOps <span class="status plan">Long term</span></h3>
+          <p>Infrastructure and pipelines for machine-learning systems.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="label">Sheet 04 — Projects</div>
+      <div class="projects">
+        <div class="card project">
+          <span class="from"><b>Capstone</b> · planned</span>
+          <h3>Site Ops — a construction-site platform</h3>
+          <p>A small web app for managing a building site (tasks, incidents, daily reports),
+             built and operated end-to-end like a real production service.</p>
+          <div class="stack">
+            <span>AWS</span><span>Terraform</span><span>Kubernetes</span><span>Helm</span>
+            <span>GitHub Actions</span><span>ArgoCD</span><span>Prometheus</span><span>Grafana</span>
+          </div>
+        </div>
+        <div class="card project ghost">
+          <span class="from"><b>Labs</b> · ongoing</span>
+          <h3>Hands-on exercises</h3>
+          <p>Course work and experiments: Docker, Jenkins pipelines, Terraform modules, Kubernetes manifests.</p>
+          <a class="more" href="https://github.com/kybrn-labs">github.com/kybrn-labs →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="label">Sheet 05 — Toolbox</div>
+      <div class="skills">
+        <div><h4>Systems</h4><ul><li>Linux</li><li>Bash</li><li>Networking</li></ul></div>
+        <div><h4>Build &amp; ship</h4><ul><li>Git</li><li>Docker</li><li>CI/CD</li></ul></div>
+        <div><h4>Cloud &amp; IaC</h4><ul><li>AWS</li><li>Terraform</li><li>Ansible</li></ul></div>
+        <div><h4>Run</h4><ul><li>Kubernetes</li><li>Prometheus</li><li>Python</li></ul></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="label">Sheet 06 — Contact</div>
+      <p class="about-text">Open to junior DevOps / Cloud roles from 2027. Happy to talk.</p>
+      <div class="contact">
+        <a class="btn primary" href="mailto:xavier@kybrn.dev">xavier@kybrn.dev</a>
+        <a class="btn" href="https://github.com/kybrn">GitHub</a>
+        <!-- TODO: replace with your LinkedIn profile URL -->
+        <a class="btn" href="https://www.linkedin.com/in/YOUR-PROFILE">LinkedIn</a>
+      </div>
+    </section>
+
+    <footer>
+      <div class="titleblock">
+        <div><small>Project</small>kybrn.dev — Xavier</div>
+        <div><small>Location</small>Lleida, ES</div>
+        <div><small>Scale</small>1:1</div>
+        <div><small>Rev.</small>A · 2026</div>
+      </div>
+      <p class="palette">Palette: <span class="sw"><i style="background:#F0EEE9;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)"></i>Pantone 11-4201 Cloud Dancer</span><span class="sw"><i style="background:#0F4C81"></i>19-4052 Classic Blue</span><span class="sw"><i style="background:#A47864"></i>17-1230 Mocha Mousse</span></p>
+    </footer>
+  </main>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeToggle');
+  function current(){ var t=root.getAttribute('data-theme'); if(t) return t;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }
+  function label(){ btn.querySelector('.t-label').textContent = current()==='dark' ? 'Light' : 'Dark'; }
+  try{ var saved=localStorage.getItem('theme'); if(saved) root.setAttribute('data-theme',saved); }catch(e){}
+  label();
+  btn.addEventListener('click',function(){
+    var next=current()==='dark'?'light':'dark'; root.setAttribute('data-theme',next);
+    try{ localStorage.setItem('theme',next); }catch(e){}
+    label();
+  });
+})();
+</script>
+</body>
+</html>
